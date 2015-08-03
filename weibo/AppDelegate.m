@@ -16,9 +16,48 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    
+    //1.创建窗口
+    self.window.frame = [UIScreen mainScreen].bounds;
+    //2.创建根视图控制器
+    UITabBarController *tabbar = [[UITabBarController alloc]init];
+    self.window.rootViewController = tabbar;
+    //3.创建子视图控制器
+    HomeViewController *home = [[HomeViewController alloc]init];
+    MessageViewController *message = [[MessageViewController alloc]init];
+    ProfileViewController *profile = [[ProfileViewController alloc]init];
+    DiscoverViewController *discover = [[DiscoverViewController alloc]init];
+    
+    [self addchildVC:home addtitle:@"首页" addimage:@"tabbar_home" addselectimage:@"tabbar_home_highlighted"];
+    [self addchildVC:message addtitle:@"消息" addimage:@"tabbar_message_center" addselectimage:@"tabbar_message_center_highlighted"];
+    [self addchildVC:profile addtitle:@"我" addimage:@"tabbar_profile" addselectimage:@"tabbar_profile_highlighted"];
+    [self addchildVC:discover addtitle:@"搜索" addimage:@"tabbar_discover"
+      addselectimage:@"tabbar_discover_highlighted"];
+    
+    [tabbar addChildViewController:home];
+    [tabbar addChildViewController:message];
+    [tabbar addChildViewController:profile];
+    [tabbar addChildViewController:discover];
+    
+    //4.显示窗口
+    [self.window makeKeyAndVisible];
+    
     return YES;
 }
+//封装 tabbar
+- (void)addchildVC:(UIViewController *)childvc addtitle:(NSString *)title addimage:(NSString *)image addselectimage:(NSString *)selectimage
+{
+    childvc.tabBarItem.title = title;
+    childvc.tabBarItem.image = [UIImage imageNamed:image];
+    childvc.tabBarItem.selectedImage = [[UIImage imageNamed:selectimage] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    
+    //设置title颜色
+    NSMutableDictionary *textAttrs=[NSMutableDictionary dictionary];
+    textAttrs[NSForegroundColorAttributeName]=[UIColor orangeColor];
+    [childvc.tabBarItem setTitleTextAttributes:textAttrs forState:UIControlStateSelected];
+    
+}
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

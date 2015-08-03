@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
+#import "HomeViewController.h"
+#import "DiscoverViewController.h"
+#import "ProfileViewController.h"
+#import "MessageViewController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
